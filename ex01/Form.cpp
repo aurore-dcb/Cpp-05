@@ -2,7 +2,7 @@
 
 Form::~Form( void ) {}
 
-Form::Form( const Form& cpy ) : _name(cpy._name), _gradeToSign(cpy._gradeToSign), _gradeToExecute(cpy._gradeToExecute) {
+Form::Form( const Form& cpy ) : _name(cpy._name), _signed(false), _gradeToSign(cpy._gradeToSign), _gradeToExecute(cpy._gradeToExecute) {
 
     *this = cpy;
 }
@@ -42,34 +42,24 @@ bool Form::getSigned( void ) const {
     return _signed;
 }
 
-// void Form::incrementGrade( void ) {
+void Form::beSigned( Bureaucrat bureaucrat ) {
 
-//     std::cout << "Incrementing " << _name << " grade ..."  << std::endl;
-//     if (_grade - 1 < 1)
-//         throw Form::GradeTooHighException();
-//     else {
-//         _grade--;
-//     }
-// }
-
-// void Form::decrementGrade( void ) {
-
-//     std::cout << "Decrementing " << _name << " grade ..."  << std::endl;
-//     if (_grade + 1 > 150)
-//         throw Form::GradeTooLowException();
-//     else {
-//         _grade++;
-//     }
-// }
+	if (bureaucrat.getGrade() <= _gradeToSign) {
+        _signed = true;
+    }
+    else {
+        throw Form::GradeTooLowException();
+    }
+}
 
 std::ostream &operator<<(std::ostream &os, Form &other) {
 
-    os << "Form's informations :" << std::endl;
+    os << other.getName() << "'s informations :" << std::endl;
     os << "	- grade required to sign : " << other.getGradeToSign() << std::endl;
 	os << "	- grade required to execute : " << other.getGradeToExec() << std::endl;
 	if (other.getSigned())
-		os << "	- status : signed" << std::endl;
+		os << "	- status : " << GREEN << "signed" << RESET_COLOR << std::endl;
 	else
-		os << "	- status : not signed" << std::endl;
+		os << "	- status : " << RED << "not signed" << RESET_COLOR << std::endl;
     return os;
 }

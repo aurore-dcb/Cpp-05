@@ -6,6 +6,16 @@
 
 #include "Bureaucrat.hpp"
 
+#define RED         "\033[31m"
+#define GRAY        "\033[90m"
+#define GREEN       "\033[32m"
+#define YELLOW      "\033[33m"
+#define BLACK       "\033[30m"
+#define RESET_COLOR "\033[0m"
+#define UNDERLINE   "\033[4m"
+
+class Bureaucrat ;
+
 class Form {
 
     public :
@@ -34,7 +44,7 @@ class Form {
         int getGradeToExec( void ) const;
         bool getSigned( void ) const;
 
-        void beSigned( Bureaucrat Bureaucrat )
+        void beSigned( Bureaucrat bureaucrat );
 
     private :
 

@@ -41,7 +41,7 @@ std::string Bureaucrat::getName( void ) const {
 
 void Bureaucrat::incrementGrade( void ) {
 
-    std::cout << "Incrementing " << _name << " grade ..."  << std::endl;
+    // std::cout << "Incrementing " << _name << " grade ..."  << std::endl;
     if (_grade - 1 < 1)
         throw Bureaucrat::GradeTooHighException();
     else {
@@ -51,7 +51,7 @@ void Bureaucrat::incrementGrade( void ) {
 
 void Bureaucrat::decrementGrade( void ) {
 
-    std::cout << "Decrementing " << _name << " grade ..."  << std::endl;
+    // std::cout << "Decrementing " << _name << " grade ..."  << std::endl;
     if (_grade + 1 > 150)
         throw Bureaucrat::GradeTooLowException();
     else {
@@ -63,4 +63,15 @@ std::ostream &operator<<(std::ostream &os, Bureaucrat &other) {
 
     os << other.getName() << ", bureaucrat grade " << other.getGrade() << "." << std::endl;
     return os;
+}
+
+void Bureaucrat::signForm( Form &form ) {
+    
+    try {
+        form.beSigned(*this);
+        std::cout << _name << " signed " << form.getName() << std::endl;
+    }
+    catch (Form::GradeTooLowException& e) {
+        std::cout << _name << " couldn't sign " << form.getName() << " because grade is too low." << std::endl;
+    }
 }
