@@ -1,80 +1,41 @@
 #include "../includes/Bureaucrat.hpp"
 #include "../includes/Form.hpp"
+#include "../includes/ShrubberyCreationForm.hpp"
+#include "../includes/RobotomyRequestForm.hpp"
 
 int main()
 {
     std::cout << GRAY << "----- test grade bureaucrat -----" << RESET_COLOR << std::endl;
     try {
-        Bureaucrat test("bureaucrat", 0);
-        std::cout << test;
+        Bureaucrat Worker("worker", 50);
+        std::cout << Worker;
+        ShrubberyCreationForm form1("people");
+        Worker.signForm(form1);
+        std::cout << form1;
+        Worker.executeForm(form1);
+        Bureaucrat CEO("CEO", 25);
+        std::cout << CEO;
+        CEO.signForm(form1);
+        CEO.executeForm(form1);
+        RobotomyRequestForm form2("private");
+        CEO.signForm(form2);
+        std::cout << form2;
+        CEO.executeForm(form2);
+
     }
     catch (Bureaucrat::GradeTooLowException& e) {
         std::cout << "Exception caught: " << e.what() << std::endl; 
     }
     catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-
-    std::cout << std::endl;
-
-    try {
-        std::cout << GRAY << "--- test copy ---" << RESET_COLOR << std::endl;
-        AForm form("warning", 100, 5);
-        AForm form2 = form;
-        std::cout << GRAY << "form" << RESET_COLOR << std::endl;
-        std::cout << form;
-        std::cout << GRAY << "form2" << RESET_COLOR << std::endl;
-        std::cout << form2;
-
-        Bureaucrat Worker("Worker", 26);
-        std::cout << GRAY << std::endl << "----- Worker signs form2 -----" << RESET_COLOR << std::endl;
-        Worker.signForm(form2);
-        std::cout << GRAY << "form" << RESET_COLOR << std::endl;
-        std::cout << form;
-        std::cout << GRAY << "form2" << RESET_COLOR << std::endl;
-        std::cout << form2;
-        
-        std::cout << GRAY << std::endl << "----- Worker signs form -----" << RESET_COLOR << std::endl;
-        Worker.signForm(form);
-        std::cout << GRAY << "form" << RESET_COLOR << std::endl;
-        std::cout << form;
-        std::cout << GRAY << "form2" << RESET_COLOR << std::endl;
-        std::cout << form2;
-
-        std::cout << GRAY << "Both forms have been signed." << RESET_COLOR << std::endl << std::endl;
-
-        /* New Bureaucrat and new form */
-        std::cout << GRAY << std::endl << "----- New Bureaucrat and new form -----" << RESET_COLOR << std::endl;
-        Bureaucrat Manager("Manager", 2);
-        AForm newForm("crisis", 25, 5);
-        std::cout << newForm;
-
-        std::cout << GRAY << "Worker try to sign crisis form" << RESET_COLOR << std::endl;
-        Worker.signForm(newForm);
-        std::cout << GRAY << "Manager try to sign crisis form" << RESET_COLOR << std::endl;
-        Manager.signForm(newForm);
-
-        std::cout << std::endl;
-
-        std::cout << Worker;
-        std::cout << "... Worker got an augmentation ..." << std::endl;
-        Worker.incrementGrade();
-        std::cout << Worker;
-        std::cout << GRAY << "Worker try to sign crisis form AGAIN" << RESET_COLOR << std::endl;
-        Worker.signForm(newForm);
-        std::cout << GRAY << "Worker now has a pretty high grade to sign the crisis form " << RESET_COLOR << std::endl;
-        std::cout << newForm;
-    }
-    catch (AForm::GradeTooHighException& e) {
         std::cout << "Exception caught: " << e.what() << std::endl; 
     }
     catch (AForm::GradeTooLowException& e) {
         std::cout << "Exception caught: " << e.what() << std::endl; 
     }
-    catch (Bureaucrat::GradeTooLowException& e) {
+    catch (AForm::GradeTooHighException& e) {
         std::cout << "Exception caught: " << e.what() << std::endl; 
     }
-    catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (const std::ios_base::failure& e) {
+        std::cerr << e.what() << std::endl;
     }
 }
