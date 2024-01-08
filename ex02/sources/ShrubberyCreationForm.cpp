@@ -27,7 +27,6 @@ void ShrubberyCreationForm::formAction() const {
         file << " ^^^^^^^  ^^^^^^^  ^^^^^^^ " << std::endl;
         file << "    |        |        | " << std::endl;
     } else {
-        //throw une erreur
         throw std::ios_base::failure("Erreur lors de l'ouverture du fichier ");
     }
 }

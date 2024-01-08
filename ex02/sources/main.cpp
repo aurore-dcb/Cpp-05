@@ -75,7 +75,7 @@ int main()
         chef.executeForm(robotForm);
 
         std::cout << std::endl;
-        Bureaucrat boss("boss", 3);
+        Bureaucrat boss("boss", 6);
         std::cout << boss;
         std::cout << robotForm;
         boss.executeForm(robotForm);
@@ -84,6 +84,9 @@ int main()
         PresidentialPardonForm presidentialForm("bigboss");
         std::cout << presidentialForm;
         boss.signForm(presidentialForm);
+        boss.executeForm(presidentialForm);
+        std::cout << "Boss got an augmentation." << std::endl;
+        boss.incrementGrade();
         boss.executeForm(presidentialForm);
     }
     catch (Bureaucrat::GradeTooLowException& e) {
