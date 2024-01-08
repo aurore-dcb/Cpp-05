@@ -2,26 +2,48 @@
 #include "../includes/Form.hpp"
 #include "../includes/ShrubberyCreationForm.hpp"
 #include "../includes/RobotomyRequestForm.hpp"
+#include "../includes/PresidentialPardonForm.hpp"
 
 int main()
 {
-    std::cout << GRAY << "----- test grade bureaucrat -----" << RESET_COLOR << std::endl;
+    std::cout << GRAY << std::endl << "----- test grade bureaucrat -----" << std::endl << RESET_COLOR << std::endl;
+    try {
+        Bureaucrat Worker("worker", 200);
+    }
+    catch (Bureaucrat::GradeTooLowException& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl; 
+    }
+    catch (Bureaucrat::GradeTooHighException& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl; 
+    }
+    /* ----------------------------------------- */
+    std::cout << GRAY << std::endl << "----- test execute form without sign -----" << std::endl << RESET_COLOR << std::endl;
     try {
         Bureaucrat Worker("worker", 50);
         std::cout << Worker;
-        ShrubberyCreationForm form1("people");
-        Worker.signForm(form1);
+        ShrubberyCreationForm form1("notImportant");
         std::cout << form1;
         Worker.executeForm(form1);
-        Bureaucrat CEO("CEO", 25);
-        std::cout << CEO;
-        CEO.signForm(form1);
-        CEO.executeForm(form1);
-        RobotomyRequestForm form2("private");
-        CEO.signForm(form2);
-        std::cout << form2;
-        CEO.executeForm(form2);
-
+        Worker.signForm(form1);
+        Worker.executeForm(form1);
+    }
+    catch (AForm::GradeTooLowException& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl; 
+    }
+    catch (AForm::GradeTooHighException& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl; 
+    }
+    catch (const std::ios_base::failure& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    /* ----------------------------------------- */
+    std::cout << GRAY << std::endl << "----- test grade too low to execute -----" << std::endl << RESET_COLOR << std::endl;
+    try {
+        Bureaucrat employee("employee", 80);
+        RobotomyRequestForm robotForm("important");
+        std::cout << employee;
+        std::cout << robotForm;
+        employee.signForm(robotForm);
     }
     catch (Bureaucrat::GradeTooLowException& e) {
         std::cout << "Exception caught: " << e.what() << std::endl; 
@@ -35,7 +57,39 @@ int main()
     catch (AForm::GradeTooHighException& e) {
         std::cout << "Exception caught: " << e.what() << std::endl; 
     }
-    catch (const std::ios_base::failure& e) {
-        std::cerr << e.what() << std::endl;
+    /* ----------------------------------------- */
+    std::cout << GRAY << std::endl << "----- test grade too low to sign/execute -----" << std::endl << RESET_COLOR << std::endl;
+    try {
+        Bureaucrat employee("employee", 80);
+        ShrubberyCreationForm shrubberyForm("everyone");
+        RobotomyRequestForm robotForm("important");
+        std::cout << employee;
+        std::cout << robotForm;
+        employee.signForm(shrubberyForm);
+        employee.signForm(robotForm);
+
+        std::cout << std::endl;
+        Bureaucrat chef("chef", 50);
+        std::cout << chef;
+        chef.signForm(robotForm);
+        chef.executeForm(robotForm);
+
+        std::cout << std::endl;
+        Bureaucrat boss("boss", 3);
+        std::cout << boss;
+        std::cout << robotForm;
+        boss.executeForm(robotForm);
+
+        std::cout << std::endl;
+        PresidentialPardonForm presidentialForm("bigboss");
+        std::cout << presidentialForm;
+        boss.signForm(presidentialForm);
+        boss.executeForm(presidentialForm);
+    }
+    catch (Bureaucrat::GradeTooLowException& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl; 
+    }
+    catch (Bureaucrat::GradeTooHighException& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl; 
     }
 }

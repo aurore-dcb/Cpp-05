@@ -68,12 +68,14 @@ void AForm::execute(Bureaucrat const & executor) const {
 
     if (executor.getGrade() > this->_gradeToSign) {
         throw AForm::GradeTooLowException();
+        return;
     }
     else if (executor.getGrade() > this->_gradeToExecute) {
         throw AForm::GradeTooLowException();
+        return;
     }
     else if (this->_signed == false) {
-        std::cout << "Form not signed" << std::endl;
+        std::cout << "Form can't be executed." << std::endl;
         throw AForm::GradeTooLowException();
         return;
     }

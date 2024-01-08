@@ -21,9 +21,13 @@ void ShrubberyCreationForm::formAction() const {
 
     std::ofstream file(std::string(_target + "_shrubbery").c_str());
     if (file) {
-        file << "arbre" << std::endl;
+        file << "    ^        ^        ^ " << std::endl;
+        file << "   ^^^      ^^^      ^^^ " << std::endl;
+        file << "  ^^^^^    ^^^^^    ^^^^^ " << std::endl;
+        file << " ^^^^^^^  ^^^^^^^  ^^^^^^^ " << std::endl;
+        file << "    |        |        | " << std::endl;
     } else {
         //throw une erreur
-        throw std::ios_base::failure("Erreur lors de l'ouverture du fichier.");
+        throw std::ios_base::failure("Erreur lors de l'ouverture du fichier ");
     }
 }
