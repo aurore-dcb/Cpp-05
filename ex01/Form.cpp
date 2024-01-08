@@ -2,6 +2,15 @@
 
 Form::~Form( void ) {}
 
+Form::Form( std::string name , const int toSign , const int toExec ) : _name(name), _signed(false), _gradeToSign(toSign) , _gradeToExecute(toExec) {
+
+    if (toSign < 1 || toExec < 1)
+        throw Form::GradeTooHighException();
+    else if (toSign > 150 || toExec > 150)
+        throw Form::GradeTooLowException();
+    return;
+}
+
 Form::Form( const Form& cpy ) : _name(cpy._name), _signed(false), _gradeToSign(cpy._gradeToSign), _gradeToExecute(cpy._gradeToExecute) {
 
     *this = cpy;
@@ -11,15 +20,6 @@ Form& Form::operator=(const Form& rhs) {
 
     _signed = rhs._signed;
     return *this;
-}
-
-Form::Form( std::string name , const int toSign , const int toExec ) : _name(name), _signed(0), _gradeToSign(toSign) , _gradeToExecute(toExec) {
-
-    if (toSign < 1 || toExec < 1)
-        throw Form::GradeTooHighException();
-    else if (toSign > 150 || toExec > 150)
-        throw Form::GradeTooLowException();
-    return;
 }
 
 int Form::getGradeToSign( void ) const {
@@ -42,7 +42,7 @@ bool Form::getSigned( void ) const {
     return _signed;
 }
 
-void Form::beSigned( Bureaucrat bureaucrat ) {
+void Form::beSigned( const Bureaucrat& bureaucrat ) {
 
 	if (bureaucrat.getGrade() <= _gradeToSign) {
         _signed = true;

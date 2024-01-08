@@ -8,12 +8,15 @@ int main()
         Bureaucrat test("bureaucrat", 0);
         std::cout << test;
     }
-    catch (Bureaucrat::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
-    catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
+    // catch (Bureaucrat::GradeTooLowException& e) {
+    //     std::cout << "Exception caught: " << e.what() << std::endl; 
+    // }
+    // catch (Bureaucrat::GradeTooHighException& e) {
+    //     std::cout << "Exception caught: " << e.what() << std::endl; 
+    // }
 
     std::cout << std::endl;
 
@@ -65,16 +68,7 @@ int main()
         std::cout << GRAY << "Worker now has a pretty high grade to sign the crisis form " << RESET_COLOR << std::endl;
         std::cout << newForm;
     }
-    catch (Form::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (Form::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (Bureaucrat::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
 }

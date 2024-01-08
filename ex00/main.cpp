@@ -22,8 +22,8 @@ int main()
         std::cout << bureaucrat1;
         bureaucrat1.incrementGrade();
     }
-    catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
 
     std::cout << std::endl;

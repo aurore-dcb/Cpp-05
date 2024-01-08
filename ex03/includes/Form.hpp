@@ -25,21 +25,21 @@ class AForm {
         AForm( const AForm& cpy );
         AForm& operator=( const AForm& cpy );
 
-        class GradeTooHighException {
+        class GradeTooHighException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too high !";
             }
         };
 
-        class GradeTooLowException {
+        class GradeTooLowException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too low !";
             }
         };
 
-        class FormNotSignedException {
+        class FormNotSignedException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Form isn't signed !";

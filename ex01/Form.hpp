@@ -25,14 +25,14 @@ class Form {
         Form( const Form& cpy );
         Form& operator=( const Form& cpy );
 
-        class GradeTooHighException {
+        class GradeTooHighException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too high !";
             }
         };
 
-        class GradeTooLowException {
+        class GradeTooLowException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too low !";
@@ -44,7 +44,7 @@ class Form {
         int getGradeToExec( void ) const;
         bool getSigned( void ) const;
 
-        void beSigned( Bureaucrat bureaucrat );
+        void beSigned( const Bureaucrat& bureaucrat );
 
     private :
 

@@ -25,21 +25,21 @@ class AForm {
         AForm( const AForm& cpy );
         AForm& operator=( const AForm& cpy );
 
-        class GradeTooHighException {
+        class GradeTooHighException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too high !";
             }
         };
 
-        class GradeTooLowException {
+        class GradeTooLowException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too low !";
             }
         };
 
-        class FormNotSignedException {
+        class FormNotSignedException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Form isn't signed !";
@@ -54,6 +54,7 @@ class AForm {
         void beSigned( Bureaucrat bureaucrat );
 
         virtual void execute(Bureaucrat const & executor) const;
+        virtual void formAction() const = 0;
 
     private :
 
@@ -62,7 +63,6 @@ class AForm {
         const int           _gradeToSign;
         const int           _gradeToExecute;
 
-        virtual void formAction() const = 0;
 };
 
 std::ostream &operator<<(std::ostream &os, AForm& other);

@@ -18,14 +18,14 @@ class Bureaucrat
         Bureaucrat& operator=(const Bureaucrat& copy);
         Bureaucrat( std::string name , int grade );
 
-        class GradeTooHighException {
+        class GradeTooHighException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too high !";
             }
         };
 
-        class GradeTooLowException {
+        class GradeTooLowException : public std::exception {
             public:
             virtual const char* what() const throw() {
                 return "Grade is too low !";

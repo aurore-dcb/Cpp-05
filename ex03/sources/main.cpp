@@ -22,17 +22,14 @@ int main()
     try {
         Bureaucrat Worker("worker", 50);
         std::cout << Worker;
-        ShrubberyCreationForm form1("notImportant");
+        ShrubberyCreationForm form1("home");
         std::cout << form1;
         Worker.executeForm(form1);
         Worker.signForm(form1);
         Worker.executeForm(form1);
     }
-    catch (AForm::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (AForm::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     catch (const std::ios_base::failure& e) {
         std::cerr << e.what() << std::endl;
@@ -46,17 +43,8 @@ int main()
         std::cout << robotForm;
         employee.signForm(robotForm);
     }
-    catch (Bureaucrat::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (AForm::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (AForm::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     /* ----------------------------------------- */
     std::cout << GRAY << std::endl << "----- test grade too low to sign/execute -----" << std::endl << RESET_COLOR << std::endl;
@@ -90,11 +78,8 @@ int main()
         boss.incrementGrade();
         boss.executeForm(presidentialForm);
     }
-    catch (Bureaucrat::GradeTooLowException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
-    }
-    catch (Bureaucrat::GradeTooHighException& e) {
-        std::cout << "Exception caught: " << e.what() << std::endl; 
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
 
     /* ----------------------------------------- */
@@ -102,6 +87,7 @@ int main()
     try {
         Intern someRandomIntern;
         AForm* rrf;
+        // rrf = someRandomIntern.makeForm("other request", "Bender");
         rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
         // rrf = someRandomIntern.makeForm("shrubbery creation", "Bender");
         // rrf = someRandomIntern.makeForm("robotomy request", "Bender");
